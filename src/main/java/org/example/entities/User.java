@@ -1,15 +1,10 @@
 package org.example.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.example.services.UserService;
-
-import java.util.ArrayList;
+import lombok.*;
 
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Getter
@@ -17,18 +12,20 @@ public class User {
     @Getter
     @Setter
     private String login;
-    private Integer money;
+    @Getter
+    @Setter
+    private int money;
     @Getter
     @Setter
     private String password;
     private String city;
     private String country;
-    private UserService userService;
 
-    public User (int id, String login, String password) {
-        this.id = id;
+
+    public User(String login, String password, int money) {
         this.login = login;
         this.password = password;
+        this.money = money;
     }
 
 
@@ -37,6 +34,12 @@ public class User {
         this.login = login;
         this.password = password;
         this.money = money;
+    }
+
+    public User(int id, String login, String password) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
     }
 
     public User(Integer id, String login, String password, Integer money, String city, String country) {
@@ -48,18 +51,6 @@ public class User {
         this.country = country;
 
     }
-
-    public User(String login, String password, Integer money) {
-        this.login = login;
-        this.password = password;
-
-    }
-
-
-    public User() {
-
-    }
-
 
     @Override
     public String toString() {

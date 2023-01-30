@@ -3,7 +3,7 @@ package org.example.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Product{
+public class Product {
     @Getter
     @Setter
     public int id;
@@ -21,10 +21,23 @@ public class Product{
     private Integer typeId;
 
 
-    public Product(String name, int price, int id) {
+    public Product(int id, String name, int price, int quantity) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Product(String name, int price, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public String toString1() {
+        return "\n" + "name=" + name + "\n" +
+                "price=" + price + "\n" + "quantity=" + quantity;
     }
 
     @Override

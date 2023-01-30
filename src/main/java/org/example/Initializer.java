@@ -2,12 +2,7 @@ package org.example;
 
 import lombok.NoArgsConstructor;
 import org.example.database.*;
-import org.example.entities.User;
 import org.example.services.*;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 @NoArgsConstructor
 public class Initializer {
@@ -15,27 +10,43 @@ public class Initializer {
     private PurchaseDAO purchaseDAO;
     private ConsoleService consoleService;
     private StockDAO stockDAO;
-    private DatabaseConnection databaseConnection;
+    private Database databaseConnection;
     public UserService userService;
     public ProductDAO productDAO;
     private StockService stockService;
     private ProductService productService;
     private PurchaseService purchaseService;
+    private AllUserActions allUserActions;
 
-    public DatabaseConnection getDatabaseConnection() {
+
+    public Database getDatabaseConnection() {
         if (databaseConnection == null) {
-            databaseConnection = new DatabaseConnection();
+            databaseConnection = new Database();
         }
         return databaseConnection;
     }
 
+    public AllUserActions getAllUserActions() {
+        if (allUserActions == null) {
+            allUserActions = new AllUserActions(getConsoleService(), getProductService(), getUserService(), getStockService());
+        }
+        return allUserActions;
+    }
 
- // public ProductService getProductService() {
- //     if (productService == null) {
- //         productService = new ProductService(getConsoleService(), getProductDAO(), getUserDAO(), getUserService());
- //     }
- //     return productService;
- // }
+    public StockDAO getStockDAO() {
+        if (stockDAO == null) {
+            stockDAO = new StockDAO(getDatabaseConnection());
+        }
+        return stockDAO;
+    }
+
+
+    public ProductService getProductService() {
+        if (productService == null) {
+            productService = new ProductService(getConsoleService(), getProductDAO(), getUserDAO(), getUserService(), getPurchaseDAO());
+        }
+        return productService;
+    }
 
     public ProductDAO getProductDAO() {
         if (productDAO == null) {
@@ -53,14 +64,14 @@ public class Initializer {
 
     public StockService getStockService() {
         if (stockService == null) {
-            stockService = new StockService(getConsoleService(), getProductDAO(), getUserDAO());
+            stockService = new StockService(getConsoleService(), getProductDAO(), getUserDAO(), getStockDAO(), getPurchaseDAO(), getUserService());
         }
         return stockService;
     }
 
     public UserService getUserService() {
         if (userService == null) {
-            userService = new UserService(getConsoleService(), getUserDAO(),  getStockService());
+            userService = new UserService(getConsoleService(), getUserDAO());
         }
         return userService;
     }
@@ -74,15 +85,15 @@ public class Initializer {
 
     public PurchaseDAO getPurchaseDAO() {
         if (purchaseDAO == null) {
-            purchaseDAO = new PurchaseDAO();
+            purchaseDAO = new PurchaseDAO(getDatabaseConnection());
         }
         return purchaseDAO;
     }
-  //  public PurchaseService getPurchaseService(){
-  //      if (productService == null){
-  //          purchaseService = new PurchaseService(getConsoleService(), getProductDAO(), getUserDAO(), getUserService());
-  //      }
-  //      return purchaseService;
-  //  }
+    //  public PurchaseService getPurchaseService(){
+    //      if (productService == null){
+    //          purchaseService = new PurchaseService(getConsoleService(), getProductDAO(), getUserDAO(), getUserService());
+    //      }
+    //      return purchaseService;
+    //  }
 
 }

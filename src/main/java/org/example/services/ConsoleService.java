@@ -2,10 +2,14 @@ package org.example.services;
 
 import org.example.Initializer;
 import org.example.database.UserDAO;
+import org.example.entities.Product;
+import org.example.entities.Stock;
+import org.example.entities.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -42,18 +46,34 @@ public class ConsoleService {
         System.out.println("1-show products");
         System.out.println("2-show bought products");
         System.out.println("3-exit");
+    }
 
+    public void stockMenu() {
+        System.out.println("1-show stocks");
+        System.out.println("2-show my stocks");
+        System.out.println("3-exit");
+    }
+
+    public void serviceMenu() {
+        System.out.println("1-choose another time");
+        System.out.println("2-choose another day");
     }
 
     public void printLoggedMenu() {
         System.out.println("1-show info");
         System.out.println("2-show services");
-        System.out.println("3-exit");
+        System.out.println("3-top your account");
+        System.out.println("4-exit");
     }
 
     public void printRetryLoginMenu() {
         System.out.println("1-try another login or password");
-        System.out.println("2-exit");
+        System.out.println("2-signUp");
+    }
+
+    public void printRetrySignUpMenu() {
+        System.out.println("1-try another login");
+        System.out.println("2-logIn");
     }
 
     public String readStringFromConsole() {
@@ -93,6 +113,30 @@ public class ConsoleService {
                 continue;
             }
         }
+    }
+
+    public void printAllProductsToConsole(ArrayList<Product> products) {
+        products.forEach((x) -> System.out.println(x.toString()));
+    }
+
+    public void printAllBoughtProductsToConsole(ArrayList<Product> products) {
+        products.forEach((x) -> System.out.println(x.toString1()));
+    }
+
+    public void printAllTimeToConsole(ArrayList<String> avilableTime) {
+        avilableTime.forEach((x) -> System.out.println(x.toString()));
+    }
+
+    public void printAllStocksToConsole(ArrayList<Stock> stocks) {
+        stocks.forEach((x) -> System.out.println(x.toString()));
+    }
+
+    public void printAllBoughtStocksToConsole(ArrayList<Stock> stocks) {
+        stocks.forEach((x) -> System.out.println(x.toString1()));
+    }
+
+    public void printUserInfo(ArrayList<User> users) {
+        users.forEach((x) -> System.out.println(x.toString()));
     }
 }
 
