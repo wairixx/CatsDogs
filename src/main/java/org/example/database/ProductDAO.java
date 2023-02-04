@@ -1,5 +1,6 @@
 package org.example.database;
 
+import org.example.entities.Configs;
 import org.example.entities.Product;
 import org.example.entities.Stock;
 
@@ -8,15 +9,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProductDAO {
+public class ProductDAO extends Configs {
     private Database databaseConnection;
 
     public ProductDAO(Database databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
 
-    private static final String SQL_GET_ALL_PRODUCTS = "SELECT * FROM new_test.products;";
 
+    private static final String SQL_GET_ALL_PRODUCTS = "SELECT * FROM new_test.products;";
     private static final String SQL_CHANGE_PRODUCT_QUANTITY = "UPDATE new_test.products SET quantity = ? WHERE product_id = ?;";
     private static final String QUANTITY = "SELECT quantity FROM new_test.products WHERE product_id = ?;";
     private static final String PRICE = "SELECT price FROM new_test.products WHERE product_id = ?;";

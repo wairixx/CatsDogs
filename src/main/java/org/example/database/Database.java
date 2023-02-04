@@ -1,18 +1,21 @@
 package org.example.database;
 
-import org.example.entities.Configs;
+import org.example.services.JSON;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.sql.*;
 
-public class Database extends Configs {
+public class Database{
     Connection dbConnection = null;
+    JSON json = new JSON();
 
-    public Connection getDbConnection() throws ClassNotFoundException, SQLException {
-        String connectionString = "jdbc:mysql://" + dbHost + ":"
-                + dbPort + "/" + dbName;
+    public Connection getDbConnection() throws ClassNotFoundException, SQLException{
+        String connectionString = "jdbc:mysql://" + json.reader().getDbHost() + ":"
+                + json.reader().getDbPort() + "/" + json.reader().dbName;
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        this.dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+        this.dbConnection = DriverManager.getConnection(connectionString, json.reader().getDbUser(), json.reader().getDbPass());
 
         return this.dbConnection;
     }
