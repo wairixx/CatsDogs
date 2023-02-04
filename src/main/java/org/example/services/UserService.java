@@ -1,15 +1,14 @@
 package org.example.services;
 
 import org.example.database.UserDAO;
-import org.example.entities.Product;
 import org.example.entities.User;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserService {
-    private UserDAO userDAO;
-    private ConsoleService consoleService;
+    private final UserDAO userDAO;
+    private final ConsoleService consoleService;
 
     public UserService(ConsoleService consoleService, UserDAO userDAO) {
         this.consoleService = consoleService;
@@ -20,7 +19,6 @@ public class UserService {
         User user;
         String login;
         String password;
-        int money;
         int userChoiceNumber;
 
         while (true) {
@@ -43,34 +41,11 @@ public class UserService {
         }
         return user;
     }
-    //  public void workWithLoggedUser(User user) {
-    //      int userChoiceNumber;
-    //      link:
-    //      while (true) {
-    //          consoleService.printLoggedMenu();
-    //          userChoiceNumber = consoleService.readNumberFromConsole(1, 3);
-    //          switch (userChoiceNumber) {
-    //              case 1:
-    //                  for (int i = 0; i < userDAO.getUserInfo(user.getId()).size(); i++) {
-    //                      System.out.println(userDAO.getUserInfo(user.getId()).get(i));
-    //                      break;
-    //                  }
-    //                  break;
-    //              case 2:
-    //                  //stockService.showServices();
-    //                  break;
-    //              case 3:
-    //                  logIn();
-    //                  break;
-    //          }
-    //      }
-    //  }
-
     public void signUp() {
         String login;
         String password;
         Integer money = 0;
-        Integer userChoice;
+        int userChoice;
         String city;
         String country;
         while (true) {

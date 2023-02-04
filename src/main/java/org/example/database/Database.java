@@ -1,9 +1,6 @@
 package org.example.database;
 
 import org.example.services.JSON;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 import java.sql.*;
 
 public class Database{
@@ -49,47 +46,5 @@ public class Database{
             e.printStackTrace();
         }
         return rs;
-    }
-
-    public boolean modifyDB(String SQL, Integer date_id, Integer user_id, String... params) {
-        boolean isModify = false;
-        try {
-            PreparedStatement statement = (getDbConnection()).prepareStatement(SQL);
-            for (int i = 1; i <= params.length; i++) {
-                statement.setString(i, params[i - 1]);
-            }
-            isModify = statement.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return isModify;
-    }
-
-    public boolean modifyDB(String SQL, String user_id, String service_date, int userChoice) {
-        boolean isModify = false;
-        try {
-            PreparedStatement statement = (getDbConnection()).prepareStatement(SQL);
-            isModify = statement.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return isModify;
-    }
-
-    public boolean modifyD1(String SQL, Integer... params) {
-        boolean isModify = false;
-        try {
-            PreparedStatement statement = (dbConnection.prepareStatement(SQL));
-            for (int i = 1; i <= params.length; i++) {
-                statement.setInt(i, params[i - 1]);
-            }
-            isModify = statement.execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return isModify;
     }
 }

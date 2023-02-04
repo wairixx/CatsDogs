@@ -7,10 +7,10 @@ import org.example.services.StockService;
 import org.example.services.UserService;
 
 public class AllUserActions {
-    private ConsoleService consoleService;
-    private ProductService productService;
-    private UserService userService;
-    private StockService stockService;
+    private final ConsoleService consoleService;
+    private final ProductService productService;
+    private final UserService userService;
+    private final StockService stockService;
 
     public AllUserActions(ConsoleService consoleService, ProductService productService, UserService userService, StockService stockService) {
         this.consoleService = consoleService;
@@ -19,7 +19,7 @@ public class AllUserActions {
         this.stockService = stockService;
     }
 
-    //TODO depndency injaction
+    //TODO dependency injection
     public void firstMenu() {
         int userChoice;
 
@@ -42,7 +42,6 @@ public class AllUserActions {
 
     public void workWithLoggedUser(User user) {
         int userChoice;
-        link:
         while (true) {
             consoleService.printLoggedMenu();
             userChoice = consoleService.readNumberFromConsole(1, 4);

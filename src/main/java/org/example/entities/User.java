@@ -2,7 +2,6 @@ package org.example.entities;
 
 import lombok.*;
 
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -20,14 +19,6 @@ public class User {
     private String password;
     private String city;
     private String country;
-
-
-    public User(String login, String password, int money) {
-        this.login = login;
-        this.password = password;
-        this.money = money;
-    }
-
 
     public User(int id, String login, String password, Integer money) {
         this.id = id;

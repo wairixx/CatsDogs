@@ -4,17 +4,15 @@ import org.example.database.ProductDAO;
 import org.example.database.PurchaseDAO;
 import org.example.database.UserDAO;
 import org.example.entities.Product;
-import org.example.entities.Stock;
 import org.example.entities.User;
-
 import java.util.ArrayList;
 
 public class ProductService {
-    private ProductDAO productDAO;
-    private ConsoleService consoleService;
-    private UserDAO userDAO;
-    private UserService userService;
-    private PurchaseDAO purchaseDAO;
+    private final ProductDAO productDAO;
+    private final ConsoleService consoleService;
+    private final UserDAO userDAO;
+    private final UserService userService;
+    private final PurchaseDAO purchaseDAO;
 
 
     public ProductService(ConsoleService consoleService, ProductDAO productDAO, UserDAO userDAO, UserService userService, PurchaseDAO purchaseDAO) {
@@ -32,22 +30,11 @@ public class ProductService {
     public ArrayList<Product> getAllBoughtProducts(User user) {
         return productDAO.getAllBoughtProductsFromProductDAO(user.getId());
     }
-
-    //  public ArrayList<Product> getAllBoughtProductFromProductDAO(User user) {
-    //      return productDAO.getAllBoughtProductsFromProductDAO(user.getId());
-    //  }
-
-    // public void showProducts() {
-    //     for (int i = 0; i < productDAO.getAllProducts().size(); i++) {
-    //         System.out.println(productDAO.getAllProducts().get(i));
-    //     }
-    // }
     public void buyProducts(User user) {
         int userMoney = userDAO.money(user.getId());
         int userChoice;
         ArrayList<Product> products = productDAO.getAllProductsFromProductDAO();
         int to = products.size();
-        a:
         while (true) {
             System.out.println("Do you want to buy a product?");
             consoleService.choiceMenu();
@@ -93,7 +80,7 @@ public class ProductService {
                 }
                 break;
             } else {
-                break a;
+                break;
             }
         }
 

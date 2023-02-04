@@ -1,25 +1,21 @@
 package org.example.database;
 
+import org.example.entities.Configs;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class PurchaseDAO {
-    private Database databaseConnection;
+    private final Database databaseConnection;
 
     public PurchaseDAO(Database databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
 
-    private static final String SQL_BUY_PRODUCT = "INSERT INTO new_test.users_products " +
-            "(user_id, product_id, product_quantity)" + " VALUES (?,?,?)";
-    private static final String SQL_MAKE_DATE = "INSERT INTO new_test.date " +
-            "(user_id, month, day, time)" + " VALUES (?,?,?,?)";
-    private static final String SQL_BUY_SERVICE = "INSERT INTO new_test.users_services " +
-            "(user_id, service_id, date_id)" + " VALUES (?,?,?)";
 
     public void buyProduct(int user_id, int userChoice, int product_quantity) {
         try {
-            PreparedStatement prSt = databaseConnection.getDbConnection().prepareStatement(SQL_BUY_PRODUCT);
+            PreparedStatement prSt = databaseConnection.getDbConnection().prepareStatement(Configs.SQL_BUY_PRODUCT);
             prSt.setInt(1, userChoice);
             prSt.setInt(2, user_id);
             prSt.setInt(3, product_quantity);
@@ -30,9 +26,9 @@ public class PurchaseDAO {
         }
     }
 
-    public void makeDate(Integer month, Integer day, String time, int user_id, int userChoice) {
+    public void makeDate(Integer month, Integer day, String time, int user_id) {
         try {
-            PreparedStatement prSt = databaseConnection.getDbConnection().prepareStatement(SQL_MAKE_DATE);
+            PreparedStatement prSt = databaseConnection.getDbConnection().prepareStatement(Configs.SQL_MAKE_DATE);
             prSt.setInt(1, user_id);
             prSt.setInt(2, month);
             prSt.setInt(3, day);
@@ -46,7 +42,7 @@ public class PurchaseDAO {
 
     public void buyService(int user_id, int userChoice, int date_id) {
         try {
-            PreparedStatement prSt = databaseConnection.getDbConnection().prepareStatement(SQL_BUY_SERVICE);
+            PreparedStatement prSt = databaseConnection.getDbConnection().prepareStatement(Configs.SQL_BUY_SERVICE);
             prSt.setInt(1, user_id);
             prSt.setInt(2, userChoice);
             prSt.setInt(3, date_id);

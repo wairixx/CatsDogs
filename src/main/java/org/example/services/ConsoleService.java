@@ -1,7 +1,4 @@
 package org.example.services;
-
-import org.example.Initializer;
-import org.example.database.UserDAO;
 import org.example.entities.Product;
 import org.example.entities.Stock;
 import org.example.entities.User;
@@ -13,19 +10,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConsoleService {
-    private Initializer initializer = new Initializer();
-
     public ConsoleService() {
     }
 
-    private ConsoleService consoleService;
-
-    public ConsoleService(Initializer initializer) {
-        consoleService = initializer.getConsoleService();
-    }
-
-    private static Scanner scanner = new Scanner(System.in);
-    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static final Scanner scanner = new Scanner(System.in);
+    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public void printMainMenu() {
         System.out.println("1-login to account");
@@ -49,16 +38,10 @@ public class ConsoleService {
     }
 
     public void stockMenu() {
-        System.out.println("1-show stocks");
-        System.out.println("2-show my stocks");
+        System.out.println("1-show services");
+        System.out.println("2-show my services");
         System.out.println("3-exit");
     }
-
-    public void serviceMenu() {
-        System.out.println("1-choose another time");
-        System.out.println("2-choose another day");
-    }
-
     public void printLoggedMenu() {
         System.out.println("1-show info");
         System.out.println("2-show services");
@@ -76,17 +59,13 @@ public class ConsoleService {
         System.out.println("2-logIn");
     }
 
-    public String readStringFromConsole() {
-        return scanner.nextLine();
-    }
-
     public Integer readIntFromConsole() {
         return scanner.nextInt();
     }
 
     public String readStringFromConsole(String message) {
         System.out.println(message);
-        String line = null;
+        String line;
         try {
             line = reader.readLine();
         } catch (IOException e) {
@@ -110,7 +89,6 @@ public class ConsoleService {
                 System.out.println("Please input number between " + fromCopy + " and " + to);
             } catch (Exception e) {
                 System.out.print("Please input positive valid number: ");
-                continue;
             }
         }
     }
@@ -123,8 +101,8 @@ public class ConsoleService {
         products.forEach((x) -> System.out.println(x.toString1()));
     }
 
-    public void printAllTimeToConsole(ArrayList<String> avilableTime) {
-        avilableTime.forEach((x) -> System.out.println(x.toString()));
+    public void printAllTimeToConsole(ArrayList<String> availableTime) {
+        availableTime.forEach((x) -> System.out.println(x.toString()));
     }
 
     public void printAllStocksToConsole(ArrayList<Stock> stocks) {

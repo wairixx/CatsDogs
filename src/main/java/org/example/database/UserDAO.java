@@ -1,5 +1,6 @@
 package org.example.database;
 
+import org.example.entities.Configs;
 import org.example.entities.User;
 
 import java.sql.PreparedStatement;
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserDAO {
-    private Database databaseConnection;
+    private final Database databaseConnection;
 
     public UserDAO(Database databaseConnection) {
         this.databaseConnection = databaseConnection;
@@ -16,21 +17,10 @@ public class UserDAO {
 
     }
 
-    private static final String SQL_LOGIN = "SELECT * FROM new_test.users WHERE login = ? AND password = ?;";
-    private static final String ID = "SELECT user_id FROM new_test.users WHERE login = ? AND password = ?;";
-    private static final String SQL_SHOW_INFO = "SELECT * FROM new_test.users WHERE user_id = ?;";
-    private static final String MONEY = "SELECT money FROM new_test.users WHERE user_id = ?;";
-    private static final String SQL_CHANGE_USER_MONEY = "UPDATE new_test.users SET money = ? WHERE user_id = ?";
-    private static final String SQL_SIGN_UP_WITH_ADDITIONAL_INFO = "INSERT INTO new_test.additional_info (user_id, city, country) VALUES (?,?,?)";
-    private static final String SQL_SIGN_UP = "INSERT INTO new_test.users (login, password, money) VALUES (?,?,?)";
-    private static final String SQL_SHOW_ADDITIONAL_INFO = "SELECT  new_test.users.user_id, new_test.users.login, new_test.users.password, new_test.users.money, new_test.additional_info.city, new_test.additional_info.country\n" +
-            "            FROM new_test.users\n" +
-            "            INNER JOIN new_test.additional_info ON new_test.users.user_id =new_test.additional_info.user_id WHERE new_test.users.user_id = ?;";
-    private static final String SQL_TO_SWITCH_MONEY = "UPDATE new_test.users SET money = ? WHERE (user_id =  ?);";
-    private static final String SQL_CHECK_LOGIN = "SELECT * FROM new_test.users WHERE Login = ?;";
+
 
     public User login(String login, String password) {
-        ResultSet result = databaseConnection.getResultSet(SQL_LOGIN, login, password);
+        ResultSet result = databaseConnection.getResultSet(Configs.SQL_LOGIN, login, password);
         try {
             if (result.next()) {
                 return new User(result.getInt("user_id"), result.getString("login"), result.getString("password"));
@@ -44,7 +34,7 @@ public class UserDAO {
     public int id(String login, String password) {
         int id = 0;
         try {
-            PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(ID);
+            PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(Configs.ID);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
 
@@ -62,7 +52,7 @@ public class UserDAO {
     public int money(Integer id) {
         int money = 0;
         try {
-            PreparedStatement preparedStatement = databaseConnection.dbConnection.prepareStatement(MONEY);
+            PreparedStatement preparedStatement = databaseConnection.dbConnection.prepareStatement(Configs.MONEY);
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -78,7 +68,7 @@ public class UserDAO {
 
     public void changeMoney(Integer userMoney, Integer user_id) {
         try {
-            PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(SQL_CHANGE_USER_MONEY);
+            PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(Configs.SQL_CHANGE_USER_MONEY);
             preparedStatement.setInt(1, userMoney);
             preparedStatement.setInt(2, user_id);
 
@@ -91,11 +81,11 @@ public class UserDAO {
     public ArrayList<User> getUserInfo(Integer user_id) {
         ArrayList<User> users = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(SQL_SHOW_ADDITIONAL_INFO);
+            PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(Configs.SQL_SHOW_ADDITIONAL_INFO);
             preparedStatement.setInt(1, user_id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            PreparedStatement preparedStatement1 = databaseConnection.getDbConnection().prepareStatement(SQL_SHOW_INFO);
+            PreparedStatement preparedStatement1 = databaseConnection.getDbConnection().prepareStatement(Configs.SQL_SHOW_INFO);
             preparedStatement1.setInt(1, user_id);
             ResultSet resultSet1 = preparedStatement1.executeQuery();
             if (resultSet.next()) {
@@ -118,7 +108,7 @@ public class UserDAO {
     public boolean checkAccount(String login) {
         boolean isCreated;
         try {
-            PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(SQL_CHECK_LOGIN);
+            PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(Configs.SQL_CHECK_LOGIN);
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -133,14 +123,10 @@ public class UserDAO {
         return isCreated;
     }
 
-    public void updateMoney(int money, int id) {
-        boolean result = databaseConnection.modifyD1(SQL_TO_SWITCH_MONEY, id, money);
-    }
-
     public void signUpUser(Integer id, String city, String country) {
 
         try {
-            PreparedStatement prSt = databaseConnection.getDbConnection().prepareStatement(SQL_SIGN_UP_WITH_ADDITIONAL_INFO);
+            PreparedStatement prSt = databaseConnection.getDbConnection().prepareStatement(Configs.SQL_SIGN_UP_WITH_ADDITIONAL_INFO);
             prSt.setInt(1, id);
             prSt.setString(2, city);
             prSt.setString(3, country);
@@ -156,7 +142,7 @@ public class UserDAO {
     public void signUpUserWithoutAdditional(String login, String password, Integer money) {
 
         try {
-            PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(SQL_SIGN_UP);
+            PreparedStatement preparedStatement = databaseConnection.getDbConnection().prepareStatement(Configs.SQL_SIGN_UP);
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             preparedStatement.setInt(3, money);

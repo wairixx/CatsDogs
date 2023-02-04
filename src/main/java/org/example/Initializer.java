@@ -15,8 +15,8 @@ public class Initializer {
     public ProductDAO productDAO;
     private StockService stockService;
     private ProductService productService;
-    private PurchaseService purchaseService;
     private AllUserActions allUserActions;
+
 
 
     public Database getDatabaseConnection() {
@@ -32,7 +32,6 @@ public class Initializer {
         }
         return allUserActions;
     }
-
     public StockDAO getStockDAO() {
         if (stockDAO == null) {
             stockDAO = new StockDAO(getDatabaseConnection());
@@ -64,7 +63,7 @@ public class Initializer {
 
     public StockService getStockService() {
         if (stockService == null) {
-            stockService = new StockService(getConsoleService(), getProductDAO(), getUserDAO(), getStockDAO(), getPurchaseDAO(), getUserService());
+            stockService = new StockService(getConsoleService(), getUserDAO(), getStockDAO(), getPurchaseDAO(), getUserService());
         }
         return stockService;
     }
@@ -89,11 +88,4 @@ public class Initializer {
         }
         return purchaseDAO;
     }
-    //  public PurchaseService getPurchaseService(){
-    //      if (productService == null){
-    //          purchaseService = new PurchaseService(getConsoleService(), getProductDAO(), getUserDAO(), getUserService());
-    //      }
-    //      return purchaseService;
-    //  }
-
 }

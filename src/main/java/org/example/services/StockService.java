@@ -1,40 +1,33 @@
 package org.example.services;
 
-import org.example.database.ProductDAO;
 import org.example.database.PurchaseDAO;
 import org.example.database.StockDAO;
 import org.example.database.UserDAO;
-import org.example.entities.Product;
 import org.example.entities.Stock;
 import org.example.entities.User;
 
 import java.util.ArrayList;
 
 public class StockService {
-
-    private ProductDAO productDAO;
-    private ConsoleService consoleService;
-    private UserDAO userDAO;
-    private PurchaseService purchaseService;
-    private StockDAO stockDAO;
-    private PurchaseDAO purchaseDAO;
-    private UserService userService;
+    private final ConsoleService consoleService;
+    private final UserDAO userDAO;
+    private final StockDAO stockDAO;
+    private final PurchaseDAO purchaseDAO;
+    private final UserService userService;
 
 
-    public StockService(ConsoleService consoleService, ProductDAO productDAO, UserDAO userDAO,
+    public StockService(ConsoleService consoleService,UserDAO userDAO,
                         StockDAO stockDAO, PurchaseDAO purchaseDAO, UserService userService) {
 
         this.consoleService = consoleService;
-        this.productDAO = productDAO;
         this.userDAO = userDAO;
         this.stockDAO = stockDAO;
         this.purchaseDAO = purchaseDAO;
         this.userService = userService;
-        // this.purchaseService = purchaseService;
     }
 
     public ArrayList<Stock> getAllStocks() {
-        return stockDAO.getAllStockssFromStockDAO();
+        return stockDAO.getAllStocksFromStockDAO();
     }
 
     public ArrayList<Stock> getAllBoughtProducts(User user) {
@@ -68,15 +61,15 @@ public class StockService {
 
     public void buyService(User user) {
         int userChoice;
-        ArrayList<Stock> stocks = stockDAO.getAllStockssFromStockDAO();
+        ArrayList<Stock> stocks = stockDAO.getAllStocksFromStockDAO();
         int to = stocks.size();
         while (true) {
             System.out.println("Do you want to buy a service?");
             consoleService.choiceMenu();
             userChoice = consoleService.readNumberFromConsole(1, 2);
             if (userChoice == 1) {
-                Integer month;
-                Integer day;
+                int month;
+                int day;
                 String time;
                 System.out.println("Write id of service to buy");
                 userChoice = consoleService.readNumberFromConsole(1, to);
@@ -99,7 +92,7 @@ public class StockService {
                 int servicePrice = stockDAO.price(userChoice);
                 int userMoney = userDAO.money(user.getId());
                 if (userMoney >= servicePrice) {
-                    purchaseDAO.makeDate(month, day, time, user.getId(), userChoice);
+                    purchaseDAO.makeDate(month, day, time, user.getId());
                     int date_id = stockDAO.service_id(month, day, time);
                     purchaseDAO.buyService(user.getId(), userChoice, date_id);
                     int newMoney = userMoney -= servicePrice;

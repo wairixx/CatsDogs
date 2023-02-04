@@ -1,16 +1,8 @@
 package org.example.services;
-
-
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import org.example.entities.DatabaseConnFromFile;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
