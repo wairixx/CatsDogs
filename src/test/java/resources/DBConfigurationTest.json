@@ -1,0 +1,7 @@
+{
+  "dbHost": "dbHostTest",
+  "dbPort": "8080",
+  "dbUser": "dbUserTest",
+  "dbPass": "dbPassTest",
+  "dbName": "dbNameTest"
+}

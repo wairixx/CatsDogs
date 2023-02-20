@@ -37,7 +37,6 @@ public class Stock {
         return "\n" + "name=" + name + "\n" + "price=" + price + "\n" +
                 "date=" + day + "." + month + "\n" + "time=" + time;
     }
-
     @Override
     public String toString() {
         return "\n" + "id=" + service_id + "\n" + "name=" + name + "\n" +

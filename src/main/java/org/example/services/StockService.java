@@ -16,7 +16,7 @@ public class StockService {
     private final UserService userService;
 
 
-    public StockService(ConsoleService consoleService,UserDAO userDAO,
+    public StockService(ConsoleService consoleService, UserDAO userDAO,
                         StockDAO stockDAO, PurchaseDAO purchaseDAO, UserService userService) {
 
         this.consoleService = consoleService;
@@ -33,6 +33,7 @@ public class StockService {
     public ArrayList<Stock> getAllBoughtProducts(User user) {
         return stockDAO.getAllBoughtProductsFromProductDAO(user.getId());
     }
+
 
     public ArrayList<String> timeList() {
         ArrayList<String> time = new ArrayList<>();
@@ -71,11 +72,11 @@ public class StockService {
                 int month;
                 int day;
                 String time;
-                System.out.println("Write id of service to buy");
+                consoleService.readStringFromConsole("Write id of service to buy");
                 userChoice = consoleService.readNumberFromConsole(1, to);
-                System.out.println("Write number of month");
+                consoleService.readStringFromConsole("Write number of month");
                 month = consoleService.readNumberFromConsole(1, 12);
-                System.out.println("Write number of day");
+                consoleService.readStringFromConsole("Write number of day");
                 while (true) {
                     if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 11) {
                         day = consoleService.readNumberFromConsole(1, 31);
@@ -86,7 +87,7 @@ public class StockService {
                     }
                     break;
                 }
-                System.out.println("Available time: ");
+                consoleService.readStringFromConsole("Available time: ");
                 consoleService.printAllTimeToConsole(checkTime(day, month));
                 time = consoleService.readStringFromConsole("Input time");
                 int servicePrice = stockDAO.price(userChoice);
@@ -99,12 +100,10 @@ public class StockService {
                     user.setMoney(newMoney);
                     userDAO.changeMoney(newMoney, user.getId());
                 } else {
-                    System.out.println("you don't have enough money");
+                    consoleService.readStringFromConsole("you don't have enough money");
                     userService.topUpAccount(user);
                     break;
                 }
-            } else {
-                break;
             }
             break;
         }

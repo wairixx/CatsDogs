@@ -1,18 +1,19 @@
 package org.example.database;
 
-import org.example.services.JSON;
+import org.example.services.DBConfigurationReader;
 import java.sql.*;
 
 public class Database{
     Connection dbConnection = null;
-    JSON json = new JSON();
+    DBConfigurationReader json = new DBConfigurationReader();
 
     public Connection getDbConnection() throws ClassNotFoundException, SQLException{
-        String connectionString = "jdbc:mysql://" + json.reader().getDbHost() + ":"
-                + json.reader().getDbPort() + "/" + json.reader().dbName;
+        String connectionString = "jdbc:mysql://" + json.readDatabaseConfigFromFile().dbHost + ":"
+                + json.readDatabaseConfigFromFile().dbPort + "/" + json.readDatabaseConfigFromFile().dbName;
         Class.forName("com.mysql.cj.jdbc.Driver");
+        //TODO refactor DBConfigurationReader so that it returned "singleton"
 
-        this.dbConnection = DriverManager.getConnection(connectionString, json.reader().getDbUser(), json.reader().getDbPass());
+        this.dbConnection = DriverManager.getConnection(connectionString, json.readDatabaseConfigFromFile().dbUser , json.readDatabaseConfigFromFile().dbPass);
 
         return this.dbConnection;
     }

@@ -49,35 +49,21 @@ public class UserService {
         String city;
         String country;
         while (true) {
-            login = consoleService.readStringFromConsole("Input login:");
-            if (userDAO.checkAccount(login)) {
-                consoleService.printRetrySignUpMenu();
-                userChoice = consoleService.readNumberFromConsole(1, 2);
-                switch (userChoice) {
-                    case 1:
-                        signUp();
-                        break;
-                    case 2:
-                        logIn();
-                        break;
-                }
-
-            }
-            password = consoleService.readStringFromConsole("Input password:");
+            login = consoleService.readStringFromConsole("Input Login: ");
+            checkAccount(login);
+            password = consoleService.readStringFromConsole("Input Password: ");
             while (true) {
 
                 userDAO.signUpUserWithoutAdditional(login, password, money);
                 int id = userDAO.id(login, password);
                 while (true) {
-                    System.out.println("Do you want to add additional info?");
+                    consoleService.readStringFromConsole("Do you want to add additional info?");
                     consoleService.choiceMenu();
                     userChoice = consoleService.readNumberFromConsole(1, 2);
                     if (userChoice == 1) {
-                        city = consoleService.readStringFromConsole("Input city");
-                        country = consoleService.readStringFromConsole("Input country");
+                        city = consoleService.readStringFromConsole("Input city ");
+                        country = consoleService.readStringFromConsole("Input country ");
                         userDAO.signUpUser(id, city, country);
-                        break;
-                    } else if (userChoice == 2) {
                         break;
                     }
                 }
@@ -87,6 +73,23 @@ public class UserService {
         }
     }
 
+    public void checkAccount(String login){
+        int userChoice;
+
+        if (userDAO.checkAccount(login)) {
+            consoleService.printRetrySignUpMenu();
+            userChoice = consoleService.readNumberFromConsole(1, 2);
+            switch (userChoice) {
+                case 1:
+                    signUp();
+                    break;
+                case 2:
+                    logIn();
+                    break;
+            }
+
+        }
+    }
     public ArrayList<User> getUserInfo(User user) {
         return userDAO.getUserInfo(user.getId());
     }
@@ -96,20 +99,17 @@ public class UserService {
         int money;
         int userMoney = userDAO.money(user.getId());
         while (true) {
-            System.out.println("Your money: " + userDAO.money(user.getId()));
-            System.out.println("Do you want top up your account?");
+            consoleService.readStringFromConsole("Your money: " + userDAO.money(user.getId()));
+            consoleService.readStringFromConsole("Do you want top up your account?");
             consoleService.choiceMenu();
             userChoice = consoleService.readNumberFromConsole(1, 2);
             if (userChoice == 1) {
-                System.out.println("Input money");
-                Scanner sc = new Scanner(System.in);
-                money = sc.nextInt();
+                consoleService.readStringFromConsole("Input money");
+                money = consoleService.readIntFromConsole();
                 int newMoney = userMoney + money;
                 user.setMoney(newMoney);
                 userDAO.changeMoney(newMoney, user.getId());
-                System.out.println("Your money:" + user.getMoney());
-            } else if (userChoice == 2) {
-                break;
+                consoleService.readStringFromConsole("Your money:" + user.getMoney());
             }
             break;
         }

@@ -7,6 +7,7 @@ import lombok.*;
 public class User {
 
     @Getter
+    @Setter
     private int id;
     @Getter
     @Setter
@@ -17,7 +18,11 @@ public class User {
     @Getter
     @Setter
     private String password;
+    @Getter
+    @Setter
     private String city;
+    @Getter
+    @Setter
     private String country;
 
     public User(int id, String login, String password, Integer money) {

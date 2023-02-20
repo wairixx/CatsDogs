@@ -9,6 +9,9 @@ public class Product {
     public int id;
     @Getter
     @Setter
+    public int user_id;
+    @Getter
+    @Setter
     private String name;
     @Getter
     @Setter
@@ -20,6 +23,8 @@ public class Product {
     @Setter
     private Integer typeId;
 
+    public Product() {
+    }
 
     public Product(int id, String name, int price, int quantity) {
         this.id = id;
@@ -27,7 +32,13 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
     }
-
+    public Product(int user_id, int id, String name, int price, int quantity) {
+        this.user_id =user_id;
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
     public Product(String name, int price, int quantity) {
         this.name = name;
         this.price = price;
